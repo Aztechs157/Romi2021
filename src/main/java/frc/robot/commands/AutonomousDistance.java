@@ -15,11 +15,11 @@ public class AutonomousDistance extends SequentialCommandGroup {
      * @param drivetrain The drivetrain subsystem on which this command will run
      */
     public AutonomousDistance(Drivetrain drivetrain) {
-        addCommands(new DriveDistance(0.5, 17, drivetrain), new TurnDegrees(-0.5, 80, drivetrain),
-                new DriveDistance(0.5, 17, drivetrain), new TurnDegrees(-0.5, 90, drivetrain),
-                new DriveDistance(0.5, 14, drivetrain), new TurnDegrees(-0.5, 15, drivetrain),
+        addCommands(new DriveDistance(0.5, 17, drivetrain), new TurnDegrees(-0.5, 85, drivetrain),
+                new DriveDistance(0.5, 18, drivetrain), new TurnDegrees(-0.5, 95, drivetrain),
+                new DriveDistance(0.5, 14, drivetrain), new TurnDegrees(-0.5, 25, drivetrain),
                 new DriveDistance(0.5, 12, drivetrain), new TurnDegrees(0.5, 115, drivetrain),
                 new DriveDistance(0.5, 19, drivetrain), new TurnDegrees(0.5, 80, drivetrain),
-                new DriveDistance(.5, 19, drivetrain));
+                new DriveDistance(0.5, 19, drivetrain));
     }
 }

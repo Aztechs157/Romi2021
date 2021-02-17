@@ -6,8 +6,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.TeleopDrive;
 import frc.robot.sensors.RomiGyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -35,15 +39,20 @@ public class Drivetrain extends SubsystemBase {
     private final BuiltInAccelerometer m_accelerometer = new BuiltInAccelerometer();
 
     /** Creates a new Drivetrain. */
-    public Drivetrain() {
+    public Drivetrain(Joystick controller) {
         // Use inches as unit for encoder distances
         m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
         m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
         resetEncoders();
+        setDefaultCommand(new TeleopDrive(this, controller));
     }
 
     public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
         m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
+    }
+
+    public void tankDrive(double xaxisSpeed, double zaxisRotate) {
+        m_diffDrive.tankDrive(xaxisSpeed, zaxisRotate);
     }
 
     public void resetEncoders() {

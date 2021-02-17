@@ -32,7 +32,6 @@ public class DriveDistance extends CommandBase {
     public void initialize() {
         m_drive.arcadeDrive(0, 0);
         m_drive.resetEncoders();
-        System.out.println("yes");
     }
 
     // Called every time the scheduler runs while the command is scheduled.
