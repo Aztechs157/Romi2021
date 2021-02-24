@@ -4,13 +4,13 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.sensors.RomiGyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -38,6 +38,8 @@ public class Drivetrain extends SubsystemBase {
     // Set up the BuiltInAccelerometer
     private final BuiltInAccelerometer m_accelerometer = new BuiltInAccelerometer();
 
+    private final NetworkTableEntry kPEntry = Shuffleboard.getTab("debug").add("auto drive kP", 0).getEntry();
+
     /** Creates a new Drivetrain. */
     public Drivetrain(Joystick controller) {
         // Use inches as unit for encoder distances
@@ -45,6 +47,11 @@ public class Drivetrain extends SubsystemBase {
         m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
         resetEncoders();
         setDefaultCommand(new TeleopDrive(this, controller));
+        Shuffleboard.getTab("debug").addNumber("gyro", this::getGyroAngleZ);
+    }
+
+    public double getGyroKP() {
+        return kPEntry.getDouble(0);
     }
 
     public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
